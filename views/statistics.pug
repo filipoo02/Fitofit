@@ -1,0 +1,11 @@
+extends base
+
+block content
+    table 
+        tr 
+            th Distance (km)
+            th Date
+        each res in results 
+            tr 
+                td= res.distance 
+                td= res.dateOfActivity

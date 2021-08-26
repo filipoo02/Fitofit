@@ -1,0 +1,20 @@
+extends base
+
+block content
+    //- -console.log(${results})
+    .form-calc-dist 
+        h1 Add new walk!
+        .input-content
+            label(for='address1') Enter first address:
+            input(type='text' id='address1' name='address1' placeholder='Plac Europejski 2, Warszawa, Polska')
+        .input-content
+            label(for='address2') Enter second address:
+            input(type='text' id='address2' name='address2' placeholder='Towarowa 22, Warszawa, Polska')
+        button(class='submit-addrs-btn') Submit
+    .week-data-container 
+        h1 You walked 
+            span(class='distance-value')= `${Math.round(results.distance*100)/100}` 
+            span  km this week!
+            a(class='modal-stats') details
+    .modal.hidden
+    .overlay.hidden

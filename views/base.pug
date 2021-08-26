@@ -1,0 +1,25 @@
+doctype html 
+html 
+    head 
+        meta(charset='UTF-8')
+        meta(name='viewport' content='width=device-width, initial-scale=1.0')
+        //- meta(http-equiv='refresh' content='600')
+        link(rel='stylesheet', href='/main.css')
+        link(href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,300&display=swap" rel="stylesheet")
+      
+        //- link(rel='icon' href='/icons/tool.ico')
+        title Fitofit
+
+    body 
+        //HEADER
+        nav 
+            .main-nav
+                a(id='brand-name' href='/') Fitofit
+                    //- span(id='brand-name') Fitofit
+                a(class='option' href='/statistics') Statistics
+                    //- span(id='option') Statistics
+                
+        block content
+
+    
+        script(src='/js/bundle.js')
