@@ -2,13 +2,10 @@ import { showAlert } from "./alert";
 
 export const checkAddressFormat = (address) => {
   const splited = address.trim().split(",");
-  console.log(splited.slice(3));
   if (splited.slice(3)[0]) {
-    console.log("checkaddresformat");
     return false;
   }
   const [street, city, country] = splited;
-  console.log(splited);
   if (street && city && country) {
     return true;
   } else {
