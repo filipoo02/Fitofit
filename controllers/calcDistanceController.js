@@ -11,6 +11,7 @@ const getCoords = catchAsync(async (req, res, next) => {
     url: `http://dev.virtualearth.net/REST/v1/Locations/${address1}?o=json&key=${key}`,
   }).then((result) => {
     if (result.data.resourceSets[0].resources[0]) {
+      // console.log(result.data.resourceSets[0].resources[0].address);
       req.body.firstAddress =
         result.data.resourceSets[0].resources[0].point.coordinates;
     } else {
@@ -23,6 +24,7 @@ const getCoords = catchAsync(async (req, res, next) => {
     url: `http://dev.virtualearth.net/REST/v1/Locations/${address2}?o=json&key=${key}`,
   }).then((result) => {
     if (result.data.resourceSets[0].resources[0]) {
+      // console.log(result.data.resourceSets[0].resources[0].address);
       req.body.secondAddress =
         result.data.resourceSets[0].resources[0].point.coordinates;
     } else {
@@ -35,8 +37,8 @@ const getCoords = catchAsync(async (req, res, next) => {
 });
 const getDistance = catchAsync(async (req, res, next) => {
   const [lat0, long0] = req.body.firstAddress;
-  console.log(req.body.firstAddress);
-  console.log(req.body.secondAddress);
+  // console.log(req.body.firstAddress);
+  // console.log(req.body.secondAddress);
   const [lat1, long1] = req.body.secondAddress;
 
   const result = await axios({

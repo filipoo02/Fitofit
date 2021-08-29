@@ -35,8 +35,8 @@ const insertNewWalk = catchAsync(async (req, res, next) => {
 });
 const insertNewWalkFile = catchAsync(async (req, res, next) => {
   const activity = req.body;
-  console.log(req.body);
-  console.log(activity);
+  // console.log(req.body);
+  // console.log(activity);
   server.insertNewWalkFile(activity);
 
   res.status(200).json({

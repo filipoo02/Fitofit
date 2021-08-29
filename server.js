@@ -24,6 +24,7 @@ const dbconfig = {
   },
 };
 
+// ---------------- MSSQL ----------------
 const getAllUsers = async () => {
   try {
     const pool = await sql.connect(dbconfig);
@@ -50,6 +51,34 @@ const getUser = async (id) => {
   }
 };
 
+const getWeeklyActivity = async (id = 1) => {
+  try {
+    const pool = await sql.connect(dbconfig);
+    const event = await pool.request().query(`set datefirst 1
+    select distance,dateOfActivity from FITOFIT.dbo.Activity
+    inner join FITOFIT.dbo.Users on Activity.idUser = Users.id where id=${id} and 
+    DATEPART(week,dateOfActivity) = DATEPART(week,CURRENT_TIMESTAMP)`);
+
+    return event.recordset;
+  } catch (error) {
+    console.log(error.message);
+    return new AppError(error.message, 404);
+  }
+};
+
+const insertNewWalk = async (distance, id = 1) => {
+  try {
+    const pool = await sql.connect(dbconfig);
+    await pool.request()
+      .query(`insert into Activity(idUser,distance, dateOfActivity)
+    values(${id},${distance},CURRENT_TIMESTAMP)`);
+  } catch (error) {
+    console.log(error.message);
+    return new AppError(error.message, 404);
+  }
+};
+
+// ---------------- DANE Z PLIKU ----------------
 const getActivityFile = (type, option) => {
   let results = [];
   if (type === "week") {
@@ -84,42 +113,9 @@ const getActivityFile = (type, option) => {
   }
   return results;
 };
-
-const getWeeklyActivity = async (id = 1) => {
-  try {
-    const pool = await sql.connect(dbconfig);
-    const event = await pool.request().query(`set datefirst 1
-    select distance,dateOfActivity from FITOFIT.dbo.Activity
-    inner join FITOFIT.dbo.Users on Activity.idUser = Users.id where id=${id} and 
-    DATEPART(week,dateOfActivity) = DATEPART(week,CURRENT_TIMESTAMP)`);
-
-    return event.recordset;
-  } catch (error) {
-    console.log(error.message);
-    return new AppError(error.message, 404);
-  }
-};
 const insertNewWalkFile = (activity) => {
-  // const activity = {
-  //   distance: 2.3,
-  //   dateOfActivity: new Date(),
-  // };
-  // JSON.stringify(activity);
-  // fs.appendFileSync(dataFilePath, activity);
   activities.push(activity);
-  console.log(activity);
   fs.writeFileSync(dataFilePath, JSON.stringify(activities));
-};
-const insertNewWalk = async (distance, id = 1) => {
-  try {
-    const pool = await sql.connect(dbconfig);
-    await pool.request()
-      .query(`insert into Activity(idUser,distance, dateOfActivity)
-    values(${id},${distance},CURRENT_TIMESTAMP)`);
-  } catch (error) {
-    console.log(error.message);
-    return new AppError(error.message, 404);
-  }
 };
 module.exports = {
   getAllUsers,

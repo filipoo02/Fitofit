@@ -1,6 +1,7 @@
 const express = require("express");
 const homePageRouter = require("./routes/homePageRoutes");
 const statisticsRouter = require("./routes/statisticsRoutes");
+const statisticsPageRouter = require("./routes/statisticsPageRoutes");
 const userRouter = require("./routes/userRoutes");
 const calcDistanceRouter = require("./routes/calcDistanceRoutes");
 const AppError = require("./utils/AppError");
@@ -10,7 +11,7 @@ const path = require("path");
 app.use(express.json());
 
 app.use("/", homePageRouter);
-app.use("/statistics", statisticsRouter);
+app.use("/statistics", statisticsPageRouter);
 
 // API
 app.use("/api/v1/users", userRouter);
@@ -31,10 +32,18 @@ app.use((err, req, res, next) => {
   if (req.originalUrl.startsWith("/api")) {
     err.statusCode = err.statusCode || 500;
     err.status = err.status || "error";
-    res.status(err.statusCode).json({
-      status: err.status,
-      message: err.message,
-    });
+    if (process.env.NODE_ENV === "dev") {
+      res.status(err.statusCode).json({
+        status: err.status,
+        message: err.message,
+        stack: err.stack,
+      });
+    } else {
+      res.status(err.statusCode).json({
+        status: err.status,
+        message: err.message,
+      });
+    }
   } else {
     res.render("errorPage", {
       status: err.statusCode,

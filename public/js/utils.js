@@ -1,12 +1,21 @@
+import { showAlert } from "./alert";
+
 export const checkAddressFormat = (address) => {
-  const [street, city, country] = address.trim().split(",");
+  const splited = address.trim().split(",");
+  console.log(splited.slice(3));
+  if (splited.slice(3)[0]) {
+    console.log("checkaddresformat");
+    return false;
+  }
+  const [street, city, country] = splited;
+  console.log(splited);
   if (street && city && country) {
     return true;
   } else {
     return false;
   }
 };
-export const replacePlChars = (word) => {
+const replacePlChars = (word) => {
   // ą, ć, ę, ł, ń, ó, ś, ź, ż
   const arrayChars = ["a", "c", "e", "l", "n", "o", "s", "z", "z"];
   const arrayPlChars = ["ą", "ć", "ę", "ł", " ń", "ó", "ś", "ź", "ż"];
@@ -50,4 +59,23 @@ export const formatDate = ({
   if (returnBoth) return `${date}, ${time}`;
   if (returnTime) return `${time}`;
   if (returnDate) return `${date}`;
+};
+
+//
+
+const address1 = document.querySelector("#address1");
+const address2 = document.querySelector("#address2");
+
+export const resetFieldAddrs = () => {
+  address1.value = "";
+  address2.value = "";
+};
+
+export const inputAdresses = () => {
+  if (address1.value && address2.value) {
+    return [replacePlChars(address1.value), replacePlChars(address2.value)];
+  } else {
+    showAlert("error", "You need to pass two addresses!");
+    return [false, false];
+  }
 };

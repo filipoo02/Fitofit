@@ -2,6 +2,7 @@ const modal = document.querySelector(".modal");
 import axios from "axios";
 const overlay = document.querySelector(".overlay");
 const modalStatsBtn = document.querySelector(".modal-stats");
+
 export const modalStats = () => {
   const hideModal = () => {
     modal.classList.add("hidden");
