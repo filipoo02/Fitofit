@@ -9,7 +9,7 @@ import { getDistance } from "./getDistance";
 import { insertNewWalk } from "./insertWalk";
 const distanceValue = document.querySelector(".distance-value");
 
-export const submitAddresses = async () => {
+export const submitAddresses = async (e) => {
   const [address1Value, address2Value] = inputAdresses();
 
   if (address1Value && address2Value) {

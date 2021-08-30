@@ -18,7 +18,9 @@ if (addrCalcForm) {
   address2.addEventListener("keydown", (e) => {
     if (characters.includes(e.key)) e.preventDefault();
   });
-  submitBtn.addEventListener("click", submitAddresses);
+  submitBtn.addEventListener("click", (e) => {
+    submitAddresses(e);
+  });
   document.addEventListener("keydown", (e) => {
     if (e.key === "Enter") submitAddresses();
   });
