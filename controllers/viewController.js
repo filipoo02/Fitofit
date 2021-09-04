@@ -13,4 +13,12 @@ const homePage = catchAsync(async (req, res, next) => {
   });
 });
 
-module.exports = { homePage };
+const statisticsPage = catchAsync(async (req, res, next) => {
+  const results = server.getActivityFile("month", { byday: "byday" });
+  if (results.status === "fail") throw results;
+  res.status(200).render("statistics", {
+    results,
+  });
+});
+
+module.exports = { homePage, statisticsPage };

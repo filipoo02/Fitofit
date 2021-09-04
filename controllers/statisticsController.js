@@ -1,14 +1,6 @@
 const server = require("../server");
 const { catchAsync } = require("../utils/catchAsync");
 
-const statisticsPage = catchAsync(async (req, res, next) => {
-  const results = server.getActivityFile("month", { byday: "byday" });
-  if (results.status === "fail") throw results;
-  res.status(200).render("statistics", {
-    results,
-  });
-});
-
 const getActivityFile = catchAsync(async (req, res, next) => {
   const option = {
     sum: req.params.sum,
@@ -22,4 +14,5 @@ const getActivityFile = catchAsync(async (req, res, next) => {
     results,
   });
 });
-module.exports = { statisticsPage, getActivityFile };
+
+module.exports = { getActivityFile };
