@@ -42,13 +42,15 @@ CREATE TABLE [FITOFIT].[dbo].[Users2](
 For testing you need to insert new user into User2 table: `INSERT INTO [FITOFIT].[dbo].[Users2](name)values('John')`
 and create `config.env` file in main folder with:
 
-```PORT = 3111
+```
+PORT = 3111
 NODE_ENV = prod
 DB_SERVER = ----
 DB_DATABASE = FITOFIT
 DB_USER = ----
 DB_PASSWORD = ----
 DB_PORT = 1433
-KEY = ----```
+KEY = ----
+```
 
 PORT is a port on which app will run, [KEY](https://docs.microsoft.com/en-us/bingmaps/getting-started/bing-maps-dev-center-help/getting-a-bing-maps-key)
