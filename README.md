@@ -1,4 +1,5 @@
 # Fitofit
+!THE APP IS BEING PROCESS!
 ## Table of contents
 * [General info](#general-info)
 * [Technologies](#technologies)
