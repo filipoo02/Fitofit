@@ -1,7 +1,5 @@
 const sql = require("mssql");
 const dotenv = require("dotenv");
-const catchAsyncQuery = require("./utils/catchAsync");
-const formatDate = require("./utils/formatDate");
 const AppError = require("./utils/AppError");
 dotenv.config({ path: "./config.env" });
 require("./utils/dateMethod");
@@ -44,7 +42,7 @@ const getUser = async (id) => {
   }
 };
 
-const getWeeklyActivity = async (id = 1) => {
+const getWeeklyActivity = async (id) => {
   try {
     const pool = await sql.connect(dbconfig);
     const event = await pool.request().query(`set datefirst 1
@@ -59,7 +57,7 @@ const getWeeklyActivity = async (id = 1) => {
   }
 };
 
-const insertNewWalk = async (distance, id = 1) => {
+const insertNewWalk = async (distance, id) => {
   try {
     const pool = await sql.connect(dbconfig);
     await pool.request()
