@@ -2,16 +2,9 @@ const sql = require("mssql");
 const dotenv = require("dotenv");
 const catchAsyncQuery = require("./utils/catchAsync");
 const formatDate = require("./utils/formatDate");
-const { distanceByDay, distanceWeekMonth } = require("./utils/distanceCalc");
 const AppError = require("./utils/AppError");
-const fs = require("fs");
 dotenv.config({ path: "./config.env" });
 require("./utils/dateMethod");
-
-const dataFilePath = `${__dirname}/data/activities.json`;
-const activities = JSON.parse(
-  fs.readFileSync(`${__dirname}/data/activities.json`)
-);
 
 const dbconfig = {
   user: process.env.DB_USER,
@@ -79,50 +72,9 @@ const insertNewWalk = async (distance, id = 1) => {
   }
 };
 
-// ---------------- DANE Z PLIKU ----------------
-const getActivityFile = (type, option) => {
-  let results = [];
-  if (type === "week") {
-    activities.forEach((val, _) => {
-      if (
-        new Date().getWeekNumber() ==
-        new Date(val.dateOfActivity).getWeekNumber()
-      ) {
-        results.push(val);
-      }
-    });
-  } else if (type === "all") {
-    results = [...activities];
-  } else if (type === "month") {
-    activities.forEach((val, _) => {
-      if (new Date().getMonth() == new Date(val.dateOfActivity).getMonth()) {
-        results.push(val);
-      }
-    });
-  } else {
-    return new AppError("Bad optional paramter!", 404);
-  }
-  if (option.sum === "sum" && !option.byday) {
-    results =
-      type === "month"
-        ? distanceWeekMonth(results, true)
-        : distanceWeekMonth(results);
-  } else if (option.byday === "byday") {
-    results = distanceByDay(results);
-  } else {
-    return new AppError("Bad optional paramter!", 404);
-  }
-  return results;
-};
-const insertNewWalkFile = (activity) => {
-  activities.push(activity);
-  fs.writeFileSync(dataFilePath, JSON.stringify(activities));
-};
 module.exports = {
   getAllUsers,
   getUser,
   getWeeklyActivity,
   insertNewWalk,
-  getActivityFile,
-  insertNewWalkFile,
 };
