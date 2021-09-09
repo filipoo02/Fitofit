@@ -23,7 +23,7 @@ const sendErrorProd = (err, req, res) => {
 
 module.exports = (err, req, res, next) => {
   err.statusCode = err.statusCode || "500";
-  err.status = "error";
+  err.status = err.status || "error";
   if (process.env.NODE_ENV === "dev") {
     sendErrorDev(err, req, res);
   } else {
