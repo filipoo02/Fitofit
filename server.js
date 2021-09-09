@@ -42,18 +42,27 @@ const getUser = async (id) => {
   }
 };
 
-const getWeeklyActivity = async (id) => {
+const getWeeklyActivity = async (sort) => {
   try {
+    let event;
+    const id = 1;
     const pool = await sql.connect(dbconfig);
-    const event = await pool.request().query(`set datefirst 1
-    select distance,dateOfActivity from FITOFIT.dbo.Activity
-    inner join FITOFIT.dbo.Users on Activity.idUser = Users.id where id=${id} and 
-    DATEPART(week,dateOfActivity) = DATEPART(week,CURRENT_TIMESTAMP)`);
+    if (sort === "sortDay") {
+      event = await pool.request().query(`set datefirst 1
+      select SUM(distance) as distance,dateOfActivity from FITOFIT.dbo.Activity
+      inner join FITOFIT.dbo.Users2 on Activity.idUser = Users2.id where id=${id} and 
+      DATEPART(week,dateOfActivity) = DATEPART(week,CURRENT_TIMESTAMP) group by dateOfActivity`);
+    } else {
+      event = await pool.request().query(`set datefirst 1
+      select AVG(distance) as distance from FITOFIT.dbo.Activity
+      inner join FITOFIT.dbo.Users2 on Activity.idUser = Users2.id where id=${id} and 
+      DATEPART(week,dateOfActivity) = DATEPART(week,CURRENT_TIMESTAMP) group by DATEPART(week,dateOfActivity)`);
+    }
 
     pool.close();
     return event.recordset;
   } catch (error) {
-    return new AppError(error.message, 404);
+    throw new AppError(error, 404);
   }
 };
 
