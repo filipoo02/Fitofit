@@ -30,9 +30,9 @@ const getAllUsers = async () => {
     const pool = await sql.connect(dbconfig);
     const event = await pool.request().query("SELECT * FROM Users");
 
+    pool.close();
     return event.recordset;
   } catch (error) {
-    console.log(error.message);
     return new AppError(error.message, 404);
   }
 };
@@ -44,9 +44,9 @@ const getUser = async (id) => {
       .request()
       .query(`SELECT * FROM Users WHERE id = ${id}`);
 
+    pool.close();
     return event.recordset;
   } catch (error) {
-    console.log(error.message);
     return new AppError(error.message, 404);
   }
 };
@@ -59,9 +59,9 @@ const getWeeklyActivity = async (id = 1) => {
     inner join FITOFIT.dbo.Users on Activity.idUser = Users.id where id=${id} and 
     DATEPART(week,dateOfActivity) = DATEPART(week,CURRENT_TIMESTAMP)`);
 
+    pool.close();
     return event.recordset;
   } catch (error) {
-    console.log(error.message);
     return new AppError(error.message, 404);
   }
 };
@@ -72,8 +72,9 @@ const insertNewWalk = async (distance, id = 1) => {
     await pool.request()
       .query(`insert into Activity(idUser,distance, dateOfActivity)
     values(${id},${distance},CURRENT_TIMESTAMP)`);
+
+    pool.close();
   } catch (error) {
-    console.log(error.message);
     return new AppError(error.message, 404);
   }
 };
