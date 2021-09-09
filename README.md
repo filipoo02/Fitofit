@@ -4,6 +4,7 @@
 * [Technologies](#technologies)
 * [Setup](#setup)
 * [Test](#test)
+* [API](#api)
 
 
 ## General info
@@ -17,7 +18,7 @@ Created in
 
 ## Setup
 To run this app you need to install npm packages
-$ npm install
+`$ npm install`
 Also you need to have installed microsoft sql server and add database called FITOFIT.
 
 Then you need to add table for storing activities: 
@@ -54,3 +55,6 @@ KEY = ----
 ```
 
 PORT is a port on which app will run, [KEY](https://docs.microsoft.com/en-us/bingmaps/getting-started/bing-maps-dev-center-help/getting-a-bing-maps-key)
+
+##API
+
