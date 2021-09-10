@@ -24,7 +24,7 @@ const getAllUsers = async () => {
     pool.close();
     return event.recordset;
   } catch (error) {
-    return new AppError(error.message, 404);
+    throw error;
   }
 };
 
@@ -38,7 +38,7 @@ const getUser = async (id) => {
     pool.close();
     return event.recordset;
   } catch (error) {
-    return new AppError(error.message, 404);
+    throw error;
   }
 };
 
@@ -62,12 +62,13 @@ const getWeeklyActivity = async (sort) => {
     pool.close();
     return event.recordset;
   } catch (error) {
-    throw new AppError(error, 404);
+    throw error;
   }
 };
 
-const insertNewWalk = async (distance, id) => {
+const insertNewWalk = async (distance) => {
   try {
+    const id = 1;
     const pool = await sql.connect(dbconfig);
     await pool.request()
       .query(`insert into Activity(idUser,distance, dateOfActivity)
@@ -75,7 +76,7 @@ const insertNewWalk = async (distance, id) => {
 
     pool.close();
   } catch (error) {
-    return new AppError(error.message, 404);
+    throw error;
   }
 };
 

@@ -1,13 +1,17 @@
 const axios = require("axios");
 const AppError = require("../utils/AppError");
+const server = require("../server");
 const { catchAsync } = require("../utils/catchAsync");
 const key = process.env.KEY;
 
 const isAddrFormat = (addr) => {
+  if (!addr) throw new AppError(`Please provide two addresses`, 400);
+
   const splited = addr.trim().split(",");
   if (splited.slice(3)[0]) {
     return false;
   }
+
   const [street, city, country] = splited;
   if (street && city && country) {
     return true;
@@ -74,15 +78,33 @@ const getDistance = catchAsync(async (req, res, next) => {
 
   distance = Math.round(distance * 100) / 100;
 
-  // update travel distance for user
-  //
+  // if (!req.originalUrl.includes("insert")) {
+  //   res.status(200).json({
+  //     status: "success",
+  //     results: {
+  //       distance,
+  //     },
+  //   });
+  // } else {
+  //   req.body.distance = distance;
+  //   next();
+  // }
+
+  req.body.distance = distance;
+  next();
+});
+
+const insertNewWalk = catchAsync(async (req, res, next) => {
+  const distance = req.body.distance;
+
+  await server.insertNewWalk(distance);
 
   res.status(200).json({
     status: "success",
+    message: `${distance}km walk was added!`,
     results: {
       distance,
     },
   });
 });
-
-module.exports = { getDistance, getCoords };
+module.exports = { getDistance, getCoords, insertNewWalk };

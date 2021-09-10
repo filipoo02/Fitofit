@@ -1,7 +1,7 @@
 const express = require("express");
 const viewRouter = require("./routes/viewRoutes");
 const statisticsRouter = require("./routes/statisticsRoutes");
-const calcDistanceRouter = require("./routes/calcDistanceRoutes");
+const distanceRouter = require("./routes/distanceRoutes");
 const globalErrorHandler = require("./controllers/errorController");
 const AppError = require("./utils/AppError");
 const app = express();
@@ -12,7 +12,7 @@ app.use(express.json());
 app.use("/", viewRouter);
 
 // API
-app.use("/api/v1/distance", calcDistanceRouter);
+app.use("/api/v1/distance", distanceRouter);
 app.use("/api/v1/statistics", statisticsRouter);
 
 app.set("view engine", "pug");
