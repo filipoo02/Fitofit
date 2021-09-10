@@ -1,7 +1,6 @@
 const express = require("express");
 const viewRouter = require("./routes/viewRoutes");
 const statisticsRouter = require("./routes/statisticsRoutes");
-const userRouter = require("./routes/userRoutes");
 const calcDistanceRouter = require("./routes/calcDistanceRoutes");
 const globalErrorHandler = require("./controllers/errorController");
 const AppError = require("./utils/AppError");
@@ -13,7 +12,6 @@ app.use(express.json());
 app.use("/", viewRouter);
 
 // API
-app.use("/api/v1/users", userRouter);
 app.use("/api/v1/distance", calcDistanceRouter);
 app.use("/api/v1/statistics", statisticsRouter);
 
