@@ -2,23 +2,8 @@ const axios = require("axios");
 const AppError = require("../utils/AppError");
 const server = require("../server");
 const { catchAsync } = require("../utils/catchAsync");
+const { formatAddr } = require("./utils/formatAddr");
 const key = process.env.KEY;
-
-const isAddrFormat = (addr) => {
-  if (!addr) throw new AppError(`Please provide two addresses`, 400);
-
-  const splited = addr.trim().split(",");
-  if (splited.slice(3)[0]) {
-    return false;
-  }
-
-  const [street, city, country] = splited;
-  if (street && city && country) {
-    return true;
-  } else {
-    return false;
-  }
-};
 
 const getCoordsFromAddr = async (addr) => {
   let coords;
@@ -38,12 +23,8 @@ const getCoordsFromAddr = async (addr) => {
 };
 
 const getCoords = catchAsync(async (req, res, next) => {
-  const firstAddr = req.body.firstAddress;
-  const secondAddr = req.body.secondAddress;
-
-  if (!isAddrFormat(firstAddr) || !isAddrFormat(secondAddr)) {
-    return next(new AppError("Invalid address format!", 404));
-  }
+  const firstAddr = formatAddr(req.body.firstAddress, next);
+  const secondAddr = formatAddr(req.body.secondAddress, next);
 
   req.body.firstAddrCords = await getCoordsFromAddr(firstAddr);
   req.body.secondAddrCords = await getCoordsFromAddr(secondAddr);
