@@ -1,7 +1,6 @@
 extends base
 
 block content
-    //- -console.log(${results})
     .form-calc-dist 
         h1 Add new walk!
         .input-content
@@ -13,7 +12,7 @@ block content
         button(class='submit-addrs-btn') Submit
     .week-data-container 
         h1 You walked 
-            span(class='distance-value')= `${Math.round(results.distance*100)/100}` 
+            span(class='distance-value')= `${Math.round(results[0].distance*100)/100}` 
             span  km this week!
             a(class='modal-stats') details
     //- .table-new-added
