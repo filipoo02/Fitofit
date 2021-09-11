@@ -54,7 +54,7 @@ const getWeeklyActivity = async (sort) => {
       DATEPART(week,dateOfActivity) = DATEPART(week,CURRENT_TIMESTAMP) group by dateOfActivity`);
     } else {
       event = await pool.request().query(`set datefirst 1
-      select AVG(distance) as distance from FITOFIT.dbo.Activity
+      select SUM(distance) as distance from FITOFIT.dbo.Activity
       inner join FITOFIT.dbo.Users2 on Activity.idUser = Users2.id where id=${id} and 
       DATEPART(week,dateOfActivity) = DATEPART(week,CURRENT_TIMESTAMP) group by DATEPART(week,dateOfActivity)`);
     }
