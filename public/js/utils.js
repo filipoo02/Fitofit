@@ -1,27 +1,3 @@
-import { showAlert } from "./alert";
-
-export const checkAddressFormat = (address) => {
-  const splited = address.trim().split(",");
-  if (splited.slice(3)[0]) {
-    return false;
-  }
-  const [street, city, country] = splited;
-  if (street && city && country) {
-    return true;
-  } else {
-    return false;
-  }
-};
-const replacePlChars = (word) => {
-  // ą, ć, ę, ł, ń, ó, ś, ź, ż
-  const arrayChars = ["a", "c", "e", "l", "n", "o", "s", "z", "z"];
-  const arrayPlChars = ["ą", "ć", "ę", "ł", " ń", "ó", "ś", "ź", "ż"];
-  let newWord = word.trim().toLowerCase();
-  arrayPlChars.forEach((letter, index) => {
-    newWord = newWord.replaceAll(letter, arrayChars[index]);
-  });
-  return newWord;
-};
 // --------------------------- FORMAT DATE ---------------------------
 function addZero(num) {
   return num < 10 ? `0${num}` : num;
@@ -56,23 +32,4 @@ export const formatDate = ({
   if (returnBoth) return `${date}, ${time}`;
   if (returnTime) return `${time}`;
   if (returnDate) return `${date}`;
-};
-
-//
-
-const address1 = document.querySelector("#address1");
-const address2 = document.querySelector("#address2");
-
-export const resetFieldAddrs = () => {
-  address1.value = "";
-  address2.value = "";
-};
-
-export const inputAdresses = () => {
-  if (address1.value && address2.value) {
-    return [replacePlChars(address1.value), replacePlChars(address2.value)];
-  } else {
-    showAlert("error", "You need to pass two addresses!");
-    return [false, false];
-  }
 };

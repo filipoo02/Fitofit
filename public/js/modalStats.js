@@ -1,5 +1,7 @@
-const modal = document.querySelector(".modal");
 import axios from "axios";
+import { showAlert } from "./alert";
+const { formatDate } = require("./utils");
+const modal = document.querySelector(".modal");
 const overlay = document.querySelector(".overlay");
 const modalStatsBtn = document.querySelector(".modal-stats");
 
@@ -17,17 +19,23 @@ export const modalStats = () => {
           <th>Distance (km)</th>
           <th>Date</th>
           </tr>`;
-    // formatDate({ dataInput: new Date(v.dateOfActivity), returnDate: true })
-    await axios({
-      method: "GET",
-      url: "/api/v1/statistics/week/sum/byday",
-    }).then((val) => {
-      val.data.results.forEach((v) => {
-        table += `<tr><td>${v.distance}</td><td>${v.dateOfActivity}</td></tr>`;
+    try {
+      const result = await axios({
+        method: "GET",
+        url: "/api/v1/statistics/weekly/sortDay",
       });
-    });
-    table += "</table>";
-    modal.innerHTML = table;
+
+      result.data.weeklyDistance.forEach((v) => {
+        table += `<tr><td>${v.distance}</td><td>${formatDate({
+          dataInput: new Date(v.dateOfActivity),
+          returnDate: true,
+        })}</td></tr>`;
+      });
+      table += "</table>";
+      modal.innerHTML = table;
+    } catch (error) {
+      showAlert("error", error.response.data.message);
+    }
   };
 
   modalStatsBtn.addEventListener("click", (e) => {
