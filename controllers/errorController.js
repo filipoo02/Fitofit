@@ -25,6 +25,8 @@ const sendErrorProd = (err, req, res) => {
 const handleInternetConnError = () =>
   new AppError("Check your internet connection.", 408);
 
+const handleUnAuthError = () => new AppError("Unauthorized API key.", 401);
+
 module.exports = (err, req, res, next) => {
   err.statusCode = err.statusCode || "500";
   err.status = err.status || "error";
@@ -34,6 +36,8 @@ module.exports = (err, req, res, next) => {
     let error = { ...err };
 
     if (error.code === "ENOTFOUND") error = handleInternetConnError();
+    if (error.response.status === 401) error = handleUnAuthError();
+
     sendErrorProd(error, req, res);
   }
 };
