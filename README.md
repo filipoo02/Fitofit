@@ -1,29 +1,35 @@
 # Fitofit
-!THE APP IS BEING PROCESS!
-## Table of contents
-* [General info](#general-info)
-* [Technologies](#technologies)
-* [Setup](#setup)
-* [Test](#test)
-* [API](#api)
 
+## Table of contents
+
+- [General info](#general-info)
+- [Technologies](#technologies)
+- [Setup](#setup)
+- [Test](#test)
+- [API](#api)
+- [UI](#ui)
 
 ## General info
-App is calculating the walking distance between two inserted addresses. 
+
+App is calculating the walking distance between two inserted addresses.
 User is just to show how it could work with realtion between users and it's activities.
 
 ## Technologies
-Created in 
+
+Created in
+
 - Backend : Node.js with framework Express.js,
 - Frontend : PUG (html), CSS, JavaScript,
 - Database : MsSQL
 
 ## Setup
+
 To run this app you need to install npm packages
 `$ npm install`
 Also you need to have installed microsoft sql server and add database called FITOFIT.
 
-Then you need to add table for storing activities: 
+Then you need to add table for storing activities:
+
 ```
 CREATE TABLE [FITOFIT].[dbo].[Activity](
 	idAct INT IDENTITY(1,1) PRIMARY KEY,
@@ -34,6 +40,7 @@ CREATE TABLE [FITOFIT].[dbo].[Activity](
 ```
 
 for user:
+
 ```
 CREATE TABLE [FITOFIT].[dbo].[Users2](
 	id INT IDENTITY(1,1) PRIMARY KEY,
@@ -42,6 +49,7 @@ CREATE TABLE [FITOFIT].[dbo].[Users2](
 ```
 
 ## Test
+
 For testing you need to insert new user into User2 table: `INSERT INTO [FITOFIT].[dbo].[Users2](name)values('John')`
 and create `config.env` file in main folder with:
 
@@ -67,13 +75,16 @@ Then you can add random walking distance into database by `$ npm run insert:rand
 - GET method `/api/v1/statistics/weekly` - the result will be a weekly distance
 - GET method `/api/v1/statistics/weekly/sortDay` - the result will be a weekly distance summed up by day
 - POST method `/api/v1/distance/insert` - it will insert into DB the walking distance between two addresses, body:
+
 ```
 {
  "firstAddress": [street],[city],[country],
  "secondAddress": [street],[city],[country]
 }
 ```
+
 e.g
+
 ```
 {
  "firstAddress":"piłsudskiego 2,warszawa,polska",
