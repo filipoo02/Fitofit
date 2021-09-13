@@ -76,7 +76,7 @@ Then you can add random walking distance into database by `$ npm run insert:rand
 e.g
 ```
 {
- "firstAddress":"piłsudzkiego 2,warszawa,polska",
+ "firstAddress":"piłsudskiego 2,warszawa,polska",
  "secondAddress":"plac europejski 2,warszawa,polska"
 }
 ```
