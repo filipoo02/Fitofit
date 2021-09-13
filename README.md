@@ -55,7 +55,7 @@ DB_PASSWORD = ----
 DB_PORT = 1433
 KEY = ----
 ```
-Add some activities into Activity table with date
+
 [KEY](https://docs.microsoft.com/en-us/bingmaps/getting-started/bing-maps-dev-center-help/getting-a-bing-maps-key)
 
 Then you can add random walking distance into database by `$ npm run insert:random` or you can do it manualy in mssql.
