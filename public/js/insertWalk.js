@@ -15,6 +15,4 @@ export const insertNewWalk = async (data) => {
   } catch (error) {
     showAlert("error", error.response.data.message);
   }
-
-  return results;
 };
