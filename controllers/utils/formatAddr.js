@@ -1,3 +1,5 @@
+const AppError = require("../../utils/AppError");
+
 const replacePlChars = (word) => {
   // ą, ć, ę, ł, ń, ó, ś, ź, ż
   const arrayChars = ["a", "c", "e", "l", "n", "o", "s", "z", "z"];
