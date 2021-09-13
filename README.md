@@ -63,10 +63,10 @@ Then you can add random walking distance into database by `$ npm run insert:rand
 
 ## API
 
-- GET method `{{URL}}/api/v1/statistics/monthly` - the result will be a monthly distance summed up by day
-- GET method `{{URL}}/api/v1/statistics/weekly` - the result will be a weekly distance
-- GET method `{{URL}}/api/v1/statistics/weekly/sortDay` - the result will be a weekly distance summed up by day
-- POST method `{{URL}}/api/v1/distance/insert` - it will insert into DB the walking distance between two addresses, body:
+- GET method `/api/v1/statistics/monthly` - the result will be a monthly distance summed up by day
+- GET method `/api/v1/statistics/weekly` - the result will be a weekly distance
+- GET method `/api/v1/statistics/weekly/sortDay` - the result will be a weekly distance summed up by day
+- POST method `/api/v1/distance/insert` - it will insert into DB the walking distance between two addresses, body:
 ```
 {
  "firstAddress": [street],[city],[country],
