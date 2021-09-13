@@ -9,12 +9,13 @@
 
 
 ## General info
-App is calculating distance between two inserted addresses.
+App is calculating the walking distance between two inserted addresses. 
+User is just to show how it could work with realtion between users and it's activities.
 
 ## Technologies
 Created in 
 - Backend : Node.js with framework Express.js,
-- Frontend : HTML (pug engine), CSS, JavaScript,
+- Frontend : PUG (html), CSS, JavaScript,
 - Database : MsSQL
 
 ## Setup
@@ -54,8 +55,28 @@ DB_PASSWORD = ----
 DB_PORT = 1433
 KEY = ----
 ```
+Add some activities into Activity table with date
+[KEY](https://docs.microsoft.com/en-us/bingmaps/getting-started/bing-maps-dev-center-help/getting-a-bing-maps-key)
 
-PORT is a port on which app will run, [KEY](https://docs.microsoft.com/en-us/bingmaps/getting-started/bing-maps-dev-center-help/getting-a-bing-maps-key)
+Then you can add random walking distance into database by `$ npm run insert:random` or you can do it manualy in mssql.
+`$ npm run insert:random` will add random distance from 1 to 15km in current month to the current day.
 
 ## API
 
+- GET method `{{URL}}/api/v1/statistics/monthly` - the result will be a monthly distance summed up by day
+- GET method `{{URL}}/api/v1/statistics/weekly` - the result will be a weekly distance
+- GET method `{{URL}}/api/v1/statistics/weekly/sortDay` - the result will be a weekly distance summed up by day
+- POST method `{{URL}}/api/v1/distance/insert` - it will insert into DB the walking distance between two addresses, body:
+```
+{
+ "firstAddress": [street],[city],[country],
+ "secondAddress": [street],[city],[country]
+}
+```
+e.g
+```
+{
+ "firstAddress":"piłsudzkiego 2,warszawa,polska",
+ "secondAddress":"plac europejski 2,warszawa,polska"
+}
+```
