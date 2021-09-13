@@ -1,3 +1,5 @@
+const AppError = require("../utils/AppError");
+
 const sendErrorDev = (err, req, res) => {
   res.status(err.statusCode).json({
     status: err.status,
@@ -20,6 +22,8 @@ const sendErrorProd = (err, req, res) => {
     });
   }
 };
+const handleInternetConnError = () =>
+  new AppError("Check your internet connection.", 408);
 
 module.exports = (err, req, res, next) => {
   err.statusCode = err.statusCode || "500";
@@ -27,6 +31,9 @@ module.exports = (err, req, res, next) => {
   if (process.env.NODE_ENV === "dev") {
     sendErrorDev(err, req, res);
   } else {
-    sendErrorProd(err, req, res);
+    let error = { ...err };
+
+    if (error.code === "ENOTFOUND") error = handleInternetConnError();
+    sendErrorProd(error, req, res);
   }
 };
