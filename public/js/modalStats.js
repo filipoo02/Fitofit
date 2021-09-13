@@ -1,6 +1,6 @@
 import axios from "axios";
 import { showAlert } from "./alert";
-const { formatDate } = require("./utils");
+const { formatDate, round } = require("./utils");
 const modal = document.querySelector(".modal");
 const overlay = document.querySelector(".overlay");
 const modalStatsBtn = document.querySelector(".modal-stats");
@@ -26,7 +26,7 @@ export const modalStats = () => {
       });
 
       result.data.weeklyDistance.forEach((v) => {
-        table += `<tr><td>${v.distance}</td><td>${formatDate({
+        table += `<tr><td>${round(v.distance)}</td><td>${formatDate({
           dataInput: new Date(v.dateOfActivity),
           returnDate: true,
         })}</td></tr>`;

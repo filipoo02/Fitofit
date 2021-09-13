@@ -9,5 +9,5 @@ block content
             th Date
         each res in results 
             tr 
-                td= res.distance 
+                td= Math.round(res.distance * 100)/100 
                 td= formatDate({dataInput: res.dateOfActivity,returnDate:true})

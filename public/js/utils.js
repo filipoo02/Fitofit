@@ -33,3 +33,8 @@ export const formatDate = ({
   if (returnTime) return `${time}`;
   if (returnDate) return `${date}`;
 };
+
+// --------------------------- ROUND NUMBER ---------------------------
+export const round = (num) => {
+  return Math.round(num * 100) / 100;
+};
