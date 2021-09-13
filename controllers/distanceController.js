@@ -1,6 +1,6 @@
 const axios = require("axios");
 const AppError = require("../utils/AppError");
-const server = require("../server");
+const dbController = require("../dbController");
 const { catchAsync } = require("../utils/catchAsync");
 const { formatAddr } = require("./utils/formatAddr");
 const key = process.env.KEY;
@@ -78,7 +78,7 @@ const getDistance = catchAsync(async (req, res, next) => {
 const insertNewWalk = catchAsync(async (req, res, next) => {
   const distance = req.body.distance;
 
-  await server.insertNewWalk(distance);
+  await dbController.insertNewWalk(distance);
 
   res.status(200).json({
     status: "success",

@@ -1,6 +1,8 @@
 extends base
 
 block content
+    .report-title
+        h1 Monthly report
     table 
         tr 
             th Distance (km)
@@ -8,4 +10,4 @@ block content
         each res in results 
             tr 
                 td= res.distance 
-                td= res.dateOfActivity
+                td= formatDate({dataInput: res.dateOfActivity,returnDate:true})
